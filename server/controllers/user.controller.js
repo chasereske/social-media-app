@@ -1,6 +1,6 @@
-import User from "../models/user";
-import extend from "lodash/extend";
-import errorHandler from "../helpers/dbErrorHandler";
+const User = require("../models/user");
+const extend = require("lodash/extend");
+const errorHandler = require("../helpers/dbErrorHandler");
 
 //create user
 const create = async (req, res, next) => {
@@ -84,4 +84,4 @@ const remove = async (req, res, next) => {
   }
 };
 
-export default { create, userByID, read, list, remove, update };
+module.exports = {create, userByID, read, list, remove, update}

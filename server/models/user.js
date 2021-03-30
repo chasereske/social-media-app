@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
-import crypto from "crypto";
+const mongoose = require("mongoose");
+const crypto = require("crypto");
 
 const UserSchema = new mongoose.Schema({
   name: {
-    type: String.minlength(5).maxlength(50).required,
+    type: String,
     trim: true,
     required: `Name is required`,
   },
@@ -73,4 +73,4 @@ UserSchema.methods = {
   },
 };
 
-export default mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema);
