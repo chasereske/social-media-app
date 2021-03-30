@@ -24,6 +24,14 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  photo: {
+      data: Buffer,
+      contentType: String
+  },
+  about: {
+      type: String,
+      time: true
+  }
 });
 
 UserSchema.virtual("password")
