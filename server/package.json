@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@hot-loader/react-dom": "^17.0.1",
     "babel": "^6.23.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
@@ -25,6 +26,9 @@
     "lodash": "^4.17.21",
     "mongoose": "^5.12.2",
     "nodemon": "^2.0.7",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hot-loader": "^4.13.0",
     "yarn": "^1.22.10"
   }
 }

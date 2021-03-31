@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const expressJwt = require("express-jwt");
-const config = require("../config/default.json");
+const config = require("../config/config");
 
 const signin = async (req, res) => {
   try {
@@ -43,6 +43,7 @@ const signout = (req, res) => {
 const requireSignin = expressJwt({
   secret: config.jwtSecret,
   userProperty: "auth",
+  algorithms: ['HS256']
 });
 
 const hasAuthorization = (req, res, next) => {

@@ -5,8 +5,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const compress = require("compression");
 const helmet = require("helmet");
-//const userRoutes = require("./routes/user.routes");
-//const authRoutes = require("./routes/auth.routes");
+const userRoutes = require("./routes/user.routes");
+const authRoutes = require("./routes/auth.routes");
 
 connectDB();
 
@@ -18,8 +18,8 @@ app.use(helmet());
 app.use(cors());
 
 //mount routes
-//app.use("/", userRoutes);
-//app.use("/", authRoutes);
+app.use("/", userRoutes);
+app.use("/", authRoutes);
 
 app.use((err, req, res, next) => {
   if (err.name === "UnauthorizedError") {
