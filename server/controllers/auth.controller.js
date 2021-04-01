@@ -1,7 +1,7 @@
-const User = require("../models/user");
-const jwt = require("jsonwebtoken");
-const expressJwt = require("express-jwt");
-const config = require("../config/config");
+import User from "../models/user.model";
+import jwt from "jsonwebtoken";
+import expressJwt from "express-jwt";
+import config from "./../../config/config";
 
 const signin = async (req, res) => {
   try {
@@ -23,32 +23,26 @@ const signin = async (req, res) => {
       user: {
         _id: user._id,
         name: user.name,
-        email: user.mail,
+        email: user.email,
       },
     });
   } catch (err) {
-    return res.status("401").json({ error: "Could not sign in" });
+    return res.status("401").json({ error: "Could not sign in " });
   }
 };
-
-//Signout clears the cookie
 const signout = (req, res) => {
   res.clearCookie("t");
   return res.status("200").json({
     message: "signed out",
   });
 };
-
-//Signin creates Jwt
-const requireSignin = expressJwt({
+const requireSingin = expressJwt({
   secret: config.jwtSecret,
   userProperty: "auth",
-  algorithms: ['HS256']
+  algorithms: ["HS256"],
 });
-
 const hasAuthorization = (req, res, next) => {
   const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
-
   if (!authorized) {
     return res.status("403").json({
       error: "User is not authorized",
@@ -57,9 +51,4 @@ const hasAuthorization = (req, res, next) => {
   next();
 };
 
-module.exports = {
-  signin,
-  signout,
-  requireSignin,
-  hasAuthorization,
-};
+export default { signin, signout, requireSingin, hasAuthorization };

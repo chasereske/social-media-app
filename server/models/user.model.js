@@ -1,18 +1,18 @@
-const mongoose = require("mongoose");
-const crypto = require("crypto");
+import mongoose from "mongoose";
+import crypto from "crypto";
 
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
-    required: `Name is required`,
+    required: "Name is required",
   },
   email: {
     type: String,
     trim: true,
     unique: "Email already exists",
-    required: "Email is required",
     match: [/.+\@.+\..+/, "Please fill a valid email address"],
+    required: "Email is required",
   },
   hashed_password: {
     type: String,
@@ -24,14 +24,6 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  photo: {
-      data: Buffer,
-      contentType: String
-  },
-  about: {
-      type: String,
-      time: true
-  }
 });
 
 UserSchema.virtual("password")
@@ -45,11 +37,11 @@ UserSchema.virtual("password")
   });
 
 UserSchema.path("hashed_password").validate(function (v) {
-  if (this._password && this._password.length < 8) {
-    this.invalidate("password", "Password must be at least 8 characters.");
+  if (this._password && this._password.length < 6) {
+    this.invalidate("password", "Password must be at least 6 characters.");
   }
   if (this.isNew && !this._password) {
-    this.invalidate("password", "Password is required.");
+    this.invalidate("password", "Password is required");
   }
 }, null);
 
@@ -73,4 +65,4 @@ UserSchema.methods = {
   },
 };
 
-module.exports = mongoose.model("User", UserSchema);
+export default mongoose.model("User", UserSchema);
