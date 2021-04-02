@@ -12,8 +12,8 @@ const compile = (app) => {
     app.use(middleware);
     app.use(webpackHotMiddleware(compiler));
   }
-};
+}
 
 export default {
-  compile,
-};
+  compile
+}
