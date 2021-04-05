@@ -9,7 +9,7 @@ export default () => {
           </meta>
         </head>
         <body>
-          <div id="root">Hello World</div>
+          <div id="root"></div>
           <script type="text/javascript" src="/dist/bundle.js"></script>
         </body>
       </html>`;
