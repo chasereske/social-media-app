@@ -7,8 +7,6 @@ const MainRouter = () => {
     <div>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/users" component={Users} />
-        <Link to="/users"></Link>
       </Switch>
     </div>
   );
