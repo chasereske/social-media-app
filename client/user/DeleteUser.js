@@ -26,11 +26,11 @@ export default function DeleteUser(props) {
         userId: props.userId,
       },
       { t: jwt.token }
-    ).then((date) => {
+    ).then((data) => {
       if (data && data.error) {
         console.log(data.error);
       } else {
-        auth.clearJWT(() => console.log("delete"));
+        auth.clearJWT(() => console.log("deleted"));
         setRedirect(true);
       }
     });
@@ -44,7 +44,7 @@ export default function DeleteUser(props) {
   }
   return (
     <span>
-      <IconButton aria-lavel="Delete" onClick={clickButton} color="secondary">
+      <IconButton aria-label="Delete" onClick={clickButton} color="secondary">
         <DeleteIcon />
       </IconButton>
 

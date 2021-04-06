@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/styles";
 import { list } from "./api-user";
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
@@ -16,6 +17,17 @@ import { Link } from "react-router-dom";
 export default function Users() {
   const classes = useStyles();
   const [users, setUsers] = useState([]);
+
+  const useStyles = makeStyles((theme) => ({
+    root: theme.mixins.gutters({
+      padding: theme.spacing(1),
+      margin: theme.spacing(5),
+    }),
+    title: {
+      margin: `${theme.spacing(4)}px 0 ${theme.spacing(2)}px`,
+      color: theme.palette.openTitle,
+    },
+  }));
 
   useEffect(() => {
     const abortController = new AbortController();
