@@ -143,6 +143,10 @@ export default function EditProfile({ match }) {
             {values.error}
           </Typography>
         )}
+        <ListItem>
+          {" "}
+          <ListeItemText primary={this.state.user.about} />{" "}
+        </ListItem>
       </CardContent>
       <CardActions>
         <Button

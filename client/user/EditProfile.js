@@ -72,10 +72,12 @@ export default function EditProfile({ match }) {
   }, [match.params.userId]);
 
   const clickSubmit = () => {
-    const user = {
-      name: values.name || undefined,
-      email: values.email || undefined,
-      password: values.password || undefined,
+    let userData = new FormData()
+    values.name && userData.append('name', values.name)
+    values.email && userData.append('name', values.email)
+    values.password && userData.append('password')
+    values.about && userData.append('about', values.about)
+    values.photo && userData.append('photo', values.photo)
     };
     update(
       {
@@ -84,18 +86,20 @@ export default function EditProfile({ match }) {
       {
         t: jwt.token,
       },
-      user
-    ).then((data) => {
-      if (data && data.error) {
-        setValues({ ...values, error: data.error });
-      } else {
-        setValues({ ...values, userId: data._id, redirectToProfile: true });
-      }
-    });
-  };
-  const handleChange = (name) => (event) => {
-    setValues({ ...values, [name]: event.target.value });
-  };
+      userData).then((data) => {
+        if (data && data.error) {
+          setValues({...values, error: data.error})
+        } else {
+          setValues({...values, 'redirectToProfile': true})
+        }
+      })
+      
+    const handleChange = name => event => {
+      const value = name === 'photo'
+        ? event.target.files[0]
+        : event.target.value
+      setValues({...values, [name]: value })
+    }
 
   if (values.redirectToProfile) {
     return <Redirect to={"/user/" + values.userId} />;
@@ -106,6 +110,21 @@ export default function EditProfile({ match }) {
         <Typography variant="h6" className={classes.title}>
           Edit Profile
         </Typography>
+        <input
+          accept="image/*"
+          type="file"
+          onChange={handleChange("photo")}
+          style={{ display: "none" }}
+          id="icon-button-file"
+        />
+        <label htmlFor="icon-button-file">
+          <Button variant="containted" color="default" component="span">
+            Upload <FileUpload />
+          </Button>
+        </label>
+        <span className={classes.filename}>
+          {values.photo ? values.photo.name : ""}
+        </span>
         <TextField
           id="name"
           label="Name"
@@ -133,6 +152,15 @@ export default function EditProfile({ match }) {
           value={values.password}
           onChange={handleChange("password")}
           margin="normal"
+        />
+        <br />
+        <TextField
+          id="multipline-flexible"
+          label="About"
+          multiline
+          rows="2"
+          value={values.about}
+          onChange={handleChange("about")}
         />
         <br />{" "}
         {values.error && (
