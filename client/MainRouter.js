@@ -6,6 +6,7 @@ import Signup from "./user/Signup";
 import Signin from "./auth/Signin";
 import Profile from "./user/Profile";
 import EditProfile from "./user/EditProfile";
+import PrivateRoute from "./auth/PrivateRoute";
 
 const MainRouter = () => {
   return (
