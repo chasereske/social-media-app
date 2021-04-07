@@ -147,4 +147,15 @@ const addFollower = async (req, res) => {
     });
   }
 };
-export default { create, userByID, read, list, remove, update };
+export default {
+  create,
+  userByID,
+  read,
+  list,
+  remove,
+  update,
+  photo,
+  defaultPhoto,
+  addFollowing,
+  addFollower,
+};
