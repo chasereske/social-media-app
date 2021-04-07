@@ -71,6 +71,31 @@ export default function EditProfile({ match }) {
     };
   }, [match.params.userId]);
 
+  const checkFollow = (user) => {
+    const match = user.followers.some((follow) => {
+      return follower._id == jwt.user._id;
+    });
+    return match;
+  };
+
+  const clickFollowButton = (callApi) => {
+    callApi(
+      {
+        userId: jwt.user._id,
+      },
+      {
+        t: jwt.token,
+      },
+      values.user._id
+    ).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        setValues({ ...values, user: data, following: !values.following });
+      }
+    });
+  };
+
   const clickSubmit = () => {
     const user = {
       name: values.name || undefined,
@@ -105,64 +130,32 @@ export default function EditProfile({ match }) {
     return <Redirect to={"/user/" + values.userId} />;
   }
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Typography variant="h6" className={classes.title}>
-          Edit Profile
-        </Typography>
-        <TextField
-          id="name"
-          label="Name"
-          className={classes.textField}
-          value={values.name}
-          onChange={handleChange("name")}
-          margin="normal"
-        />
-        <br />
-        <TextField
-          id="email"
-          type="email"
-          label="Email"
-          className={classes.textField}
-          value={values.email}
-          onChange={handleChange("email")}
-          margin="normal"
-        />
-        <br />
-        <TextField
-          id="password"
-          type="password"
-          label="Password"
-          className={classes.textField}
-          value={values.password}
-          onChange={handleChange("password")}
-          margin="normal"
-        />
-        <br />{" "}
-        {values.error && (
-          <Typography component="p" color="error">
-            <Icon color="error" className={classes.error}>
-              error
-            </Icon>
-            {values.error}
-          </Typography>
+    <List dense>
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar src={photoUrl} className={classes.bigAvatar} />
+        </ListItemAvatar>
+        <ListItemText
+          primary={values.user.name}
+          secondary={values.user.email}
+        />{" "}
+        {auth.isAuthenticated().user &&
+        auth.isAuthenticated().user._id == values.user._id ? (
+          <ListItemSecondaryAction>
+            <Link to={"/user/edit/" + values.user._id}>
+              <IconButton aria-label="Edit" color="primary">
+                <Edit />
+              </IconButton>
+            </Link>
+            <DeleteUser userId={values.user._id} />
+          </ListItemSecondaryAction>
+        ) : (
+          <FollowProfileButton
+            following={values.following}
+            onButtonClick={clickFollowButton}
+          />
         )}
-        <Avatar src ={photoUrl} />
-        <ListItem>
-          {" "}
-          <ListeItemText primary={this.state.user.about} />{" "}
-        </ListItem>
-      </CardContent>
-      <CardActions>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={clickSubmit}
-          className={classes.submit}
-        >
-          Submit
-        </Button>
-      </CardActions>
-    </Card>
+      </ListItem>
+    </List>
   );
 }
