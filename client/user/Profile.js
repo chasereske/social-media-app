@@ -97,6 +97,10 @@ export default function EditProfile({ match }) {
     setValues({ ...values, [name]: event.target.value });
   };
 
+  const photoUrl = values.user._id
+    ? `/api/users/photo/${values.user._id}?${new Date().getTime()}`
+    : `/api/users/defaultphoto`;
+
   if (values.redirectToProfile) {
     return <Redirect to={"/user/" + values.userId} />;
   }
@@ -143,6 +147,7 @@ export default function EditProfile({ match }) {
             {values.error}
           </Typography>
         )}
+        <Avatar src ={photoUrl} />
         <ListItem>
           {" "}
           <ListeItemText primary={this.state.user.about} />{" "}
