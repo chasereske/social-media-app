@@ -34,4 +34,6 @@ router
 
 router.param("userId", userCtrl.userByID);
 
+router.route('/api/users/findpeople/:userId').get(authCtrl.requireSignin, userCtrl.findPeople)
+
 export default router;
