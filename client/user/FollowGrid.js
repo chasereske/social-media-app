@@ -55,7 +55,6 @@ export default function FollowGrid(props) {
     </div>
   );
 }
-
 FollowGrid.propTypes = {
   people: PropTypes.array.isRequired,
 };
