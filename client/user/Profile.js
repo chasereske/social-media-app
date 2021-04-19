@@ -51,7 +51,7 @@ export default function Profile({ match }) {
   useEffect(() => {
     const abortController = new AbortController()
     const signal = abortController.signal
-
+  
     read({
       userId: match.params.userId
     }, {t: jwt.token}, signal).then((data) => {
@@ -68,7 +68,7 @@ export default function Profile({ match }) {
     }
 
   }, [match.params.userId])
-
+  
   const checkFollow = (user) => {
     const match = user.followers.some((follower)=> {
       return follower._id == jwt.user._id
@@ -147,3 +147,5 @@ export default function Profile({ match }) {
       </Paper>
     )
 }
+
+

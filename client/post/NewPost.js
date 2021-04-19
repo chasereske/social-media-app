@@ -134,3 +134,4 @@ export default function NewPost (props){
 NewPost.propTypes = {
   addUpdate: PropTypes.func.isRequired
 }
+

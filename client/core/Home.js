@@ -87,7 +87,7 @@ export default function Home({ history }) {
               </Typography>
               <CardContent>
                 <Typography type="body1" component="p">
-                  Welcome to DevHub.
+                  Welcome to the DevHub.
                 </Typography>
               </CardContent>
             </Card>

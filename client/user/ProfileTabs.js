@@ -33,7 +33,7 @@ export default function ProfileTabs ( props ){
        {tab === 1 && <TabContainer><FollowGrid people={props.user.following}/></TabContainer>}
        {tab === 2 && <TabContainer><FollowGrid people={props.user.followers}/></TabContainer>}
     </div>)
-
+  
 }
 
 ProfileTabs.propTypes = {
